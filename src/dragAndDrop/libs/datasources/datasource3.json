@@ -1,0 +1,47 @@
+{
+  "button": {
+    "type": "button",
+    "props": {
+      "text": "Download App",
+      "color": "#f59e0b",
+      "textColor": "#000000",
+      "borderRadius": "8px",
+      "padding": "10px 20px"
+    }
+  },
+   "card": {
+    "type": "card",
+    "props": {
+      "title": "Mobile App",
+      "description": "Experience the power of Data 3 on your phone.",
+      "backgroundColor": "#fef3c7",
+      "borderRadius": "10px",
+      "padding": "16px",
+      "textAlign": "center",
+      "boxShadow": "0 2px 6px rgba(0,0,0,0.1)",
+      "width": "280px",
+      "height": "auto",
+      "border": "1px solid #fcd34d"
+    }
+  },
+  "text": {
+    "type": "text",
+    "props": {
+      "content": "This is Data 3 screen!",
+      "fontSize": "20px",
+      "fontWeight": "500",
+      "color": "#78350f",
+      "alignment": "center"
+    }
+  },
+  "image": {
+    "type": "image",
+    "props": {
+      "src": "https://via.placeholder.com/300x150.png?text=Data+3",
+      "alt": "Image from Data 3",
+      "width": "300px",
+      "height": "150px",
+      "borderRadius": "12px"
+    }
+  }
+}

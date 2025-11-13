@@ -1,0 +1,47 @@
+{
+  "button": {
+    "type": "button",
+    "props": {
+      "text": "Subscribe Now",
+      "color": "#10b981",
+      "textColor": "#ffffff",
+      "borderRadius": "6px",
+      "padding": "10px 18px"
+    }
+  },
+  "card": {
+    "type": "card",
+    "props": {
+      "title": "Subscription Plan",
+      "description": "Unlock premium features with Data 2 plan.",
+      "backgroundColor": "#ecfdf5",
+      "borderRadius": "10px",
+      "padding": "16px",
+      "textAlign": "center",
+      "boxShadow": "0 2px 6px rgba(0,0,0,0.1)",
+      "width": "280px",
+      "height": "auto",
+      "border": "1px solid #fcd34d"
+    }
+  },
+  "text": {
+    "type": "text",
+    "props": {
+      "content": "Dynamic UI – Version 2",
+      "fontSize": "22px",
+      "fontWeight": "600",
+      "color": "#065f46",
+      "alignment": "left"
+    }
+  },
+  "image": {
+    "type": "image",
+    "props": {
+      "src": "https://via.placeholder.com/300x150.png?text=Data+2",
+      "alt": "Image from Data 2",
+      "width": "300px",
+      "height": "150px",
+      "borderRadius": "8px"
+    }
+  }
+}

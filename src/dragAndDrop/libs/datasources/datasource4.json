@@ -1,0 +1,47 @@
+{
+  "button": {
+    "type": "button",
+    "props": {
+      "text": "Contact Us",
+      "color": "#ef4444",
+      "textColor": "#ffffff",
+      "borderRadius": "10px",
+      "padding": "10px 24px"
+    }
+  },
+  "card": {
+    "type": "card",
+    "props": {
+      "title": "Support Center",
+      "description": "Need help? Reach us via Data 4 support card.",
+       "backgroundColor": "#fef3c7",
+      "borderRadius": "10px",
+      "padding": "16px",
+      "textAlign": "center",
+      "boxShadow": "0 2px 6px rgba(0,0,0,0.1)",
+      "width": "280px",
+      "height": "auto",
+      "border": "1px solid #fcd34d"
+    }
+  },
+  "text": {
+    "type": "text",
+    "props": {
+      "content": "This is Data 4 content section.",
+      "fontSize": "18px",
+      "fontWeight": "600",
+      "color": "#991b1b",
+      "alignment": "right"
+    }
+  },
+  "image": {
+    "type": "image",
+    "props": {
+      "src": "https://via.placeholder.com/300x150.png?text=Data+4",
+      "alt": "Image from Data 4",
+      "width": "300px",
+      "height": "150px",
+      "borderRadius": "10px"
+    }
+  }
+}

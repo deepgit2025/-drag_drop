@@ -1,0 +1,47 @@
+{
+  "button": {
+    "type": "button",
+    "props": {
+      "text": "Get Started",
+      "color": "#2563eb",
+      "textColor": "#ffffff",
+      "borderRadius": "8px",
+      "padding": "10px 20px"
+    }
+  },
+  "card": {
+    "type": "card",
+    "props": {
+      "title": "Welcome Card",
+      "description": "This is your first dynamic UI screen.",
+      "backgroundColor": "#f3f4f6",
+      "borderRadius": "10px",
+      "padding": "16px",
+      "textAlign": "center",
+      "boxShadow": "0 2px 6px rgba(0,0,0,0.1)",
+      "width": "280px",
+      "height": "auto",
+      "border": "1px solid #fcd34d"
+    }
+  },
+  "text": {
+    "type": "text",
+    "props": {
+      "content": "Hello from Data 1!",
+      "fontSize": "20px",
+      "fontWeight": "bold",
+      "color": "#1f2937",
+      "alignment": "center"
+    }
+  },
+  "image": {
+    "type": "image",
+    "props": {
+      "src": "https://via.placeholder.com/300x150.png?text=Data+1",
+      "alt": "Image from Data 1",
+      "width": "300px",
+      "height": "150px",
+      "borderRadius": "10px"
+    }
+  }
+}
