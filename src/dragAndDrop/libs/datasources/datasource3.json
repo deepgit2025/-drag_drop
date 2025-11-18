@@ -6,7 +6,9 @@
       "color": "#f59e0b",
       "textColor": "#000000",
       "borderRadius": "8px",
-      "padding": "10px 20px"
+      "padding": "10px 20px",
+      "width": "100px",
+      "height": "40px"
     }
   },
    "card": {
@@ -31,7 +33,9 @@
       "fontSize": "20px",
       "fontWeight": "500",
       "color": "#78350f",
-      "alignment": "center"
+      "alignment": "center",
+      "width": "150px",
+      "height": "100px"
     }
   },
   "image": {

@@ -94,8 +94,9 @@ change data from layout only and their schema usng state managment tools or tans
 update all data and ui handlers from layout
 like appsmith, make a separate data and styles option on right.
 make an handler file which update all changed states and their dependent elements.
-add remove widgets feature in it
-
+add remove widgets feature in it.
+disble select in widgets, only active when dropped
+PS:: ask of OKR to sir
 
 
 

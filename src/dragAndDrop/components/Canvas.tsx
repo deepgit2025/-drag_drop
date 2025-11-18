@@ -79,18 +79,37 @@ const Canvas = ({ droppedItems, setDroppedItems }) => {
               ? { ...w, position: { x: newX, y: newY } }
               : w
           );
+          const updatedItem = updated.find(w=>w.id=== item.id);
+          if (!canPlaceWidget(updatedItem, prev, canvasRect)){
+            console.warn("Drop rejected: Collision detected");
+            return prev;
+          }
           return adjustLayout(updated, item.id, { x: 0, y: 0 }, canvasRect);
         } else {
+          // const uniqueId = `${item.id}-${Date.now()}`;
+          // return [
+          //   ...prev,
+          //   {
+          //     ...item,
+          //     id: uniqueId,
+          //     position: { x: newX, y: newY },
+          //     size: resolveWidgetSize(item.name),
+          //     data: item.data || {}, // store initial data
+          //   },
+          // ];
           const uniqueId = `${item.id}-${Date.now()}`;
-          return [
-            ...prev,
-            {
-              ...item,
-              id: uniqueId,
-              position: { x: newX, y: newY },
-              data: item.data || {}, // store initial data
-            },
-          ];
+          const newWidget = {
+            ...item,
+            id: uniqueId,
+            position: { x: newX, y: newY },
+            size: resolveWidgetSize(item),
+            data: item.data || {},
+          };
+          if (!canPlaceWidget(newWidget, prev, canvasRect)) {
+            console.warn("Drop rejected: Collision detected");
+            return prev;
+          }
+          return [...prev, newWidget];
         }
       });
     },
@@ -108,7 +127,61 @@ const Canvas = ({ droppedItems, setDroppedItems }) => {
       )
     );
   };
+  const resolveWidgetSize = (widget)=>  {
+    // A clean map for all default widget sizes
+    const DEFAULT_SIZES = {
+      Button: { width: 120, height: 40 },
+      Text: { width: 200, height: 60 },
+      Card: { width: 300, height: 180 },
+      Image: { width: 150, height: 150 },
+      datasource1: { width: 200, height: 100 },
 
+      // fallback
+      default: { width: 100, height: 50 },
+    };
+
+    // priority:
+    // 1. widget.size (if widget already carries a size)
+    // 2. widget.data?.type (if type is stored in data)
+    // 3. compName argument (explicit type)
+    // 4. fallback default
+    const type =
+      widget ||
+      widget?.type ||
+      "default";
+
+    const size = DEFAULT_SIZES[type] || DEFAULT_SIZES.default;
+
+    return {
+      width: Number(size.width),
+      height: Number(size.height),
+    };
+  }
+  function isColliding(a, b, canvasRect) {
+    const aSize = sizePxToPercent(a.size, canvasRect);
+    const bSize = sizePxToPercent(b.size, canvasRect);
+
+    return !(
+      a.position.x + aSize.width <= b.position.x ||
+      a.position.x >= b.position.x + bSize.width ||
+      a.position.y + aSize.height <= b.position.y ||
+      a.position.y >= b.position.y + bSize.height
+    );
+  }
+
+  function canPlaceWidget(newWidget, allWidgets, canvasRect) {
+    for (const w of allWidgets) {
+      if (w.id === newWidget.id) continue; // skip itself
+      if (isColliding(newWidget, w, canvasRect)) return false; // found overlap
+    }
+    return true;
+  }
+  function sizePxToPercent(size, canvasRect) {
+    return {
+      width: (size.width / canvasRect.width) * 100,
+      height: (size.height / canvasRect.height) * 100
+    };
+  }
   return (
     <div
       ref={dropRef}
