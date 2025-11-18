@@ -19,10 +19,24 @@ const Canvas = ({ droppedItems, setDroppedItems }) => {
       const exists = droppedItems.some((w) => w.id === item.id);
       if (!exists) return;
 
-      const newX =
-        ((offset.x - canvasRect.left) / canvasRect.width) * 100;
-      const newY =
-        ((offset.y - canvasRect.top) / canvasRect.height) * 100;
+      // const newX =
+      //   ((offset.x - canvasRect.left) / canvasRect.width) * 100;
+      // const newY =
+      //   ((offset.y - canvasRect.top) / canvasRect.height) * 100;
+
+      const initialMouse = monitor.getInitialClientOffset();
+      const initialWidget = monitor.getInitialSourceClientOffset();
+
+      const grabOffsetX = initialMouse.x - initialWidget.x;
+      const grabOffsetY = initialMouse.y - initialWidget.y;
+
+      // now pointer position - grab offset gives the actual widget top-left
+      const widgetX = offset.x - grabOffsetX;
+      const widgetY = offset.y - grabOffsetY;
+
+      const newX = ((widgetX - canvasRect.left) / canvasRect.width) * 100;
+      const newY = ((widgetY - canvasRect.top) / canvasRect.height) * 100;
+
 
       setDroppedItems((prev) => {
         const updated = prev.map((w) =>
@@ -38,10 +52,24 @@ const Canvas = ({ droppedItems, setDroppedItems }) => {
       const offset = monitor.getClientOffset();
       if (!offset || !canvasRect) return;
 
-      const newX =
-        ((offset.x - canvasRect.left) / canvasRect.width) * 100;
-      const newY =
-        ((offset.y - canvasRect.top) / canvasRect.height) * 100;
+      // const newX =
+      //   ((offset.x - canvasRect.left) / canvasRect.width) * 100;
+      // const newY =
+      //   ((offset.y - canvasRect.top) / canvasRect.height) * 100;
+
+      const initialMouse = monitor.getInitialClientOffset();
+      const initialWidget = monitor.getInitialSourceClientOffset();
+
+      const grabOffsetX = initialMouse.x - initialWidget.x;
+      const grabOffsetY = initialMouse.y - initialWidget.y;
+
+      // now pointer position - grab offset gives the actual widget top-left
+      const widgetX = offset.x - grabOffsetX;
+      const widgetY = offset.y - grabOffsetY;
+
+      const newX = ((widgetX - canvasRect.left) / canvasRect.width) * 100;
+      const newY = ((widgetY - canvasRect.top) / canvasRect.height) * 100;
+
 
       setDroppedItems((prev) => {
         const exists = prev.some((w) => w.id === item.id);

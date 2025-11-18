@@ -90,12 +90,12 @@ change on button, show choose one when dropped. //done
 
 todo :: 13/11/2025 --- 19/11/2020
 perfect the drag and drop with grid like appsmith PS: responsiveness can be less prioritized //***** anyhow today
-talk to sir about react dependencies and and use tanstack query :: done
 change data from layout only and their schema usng state managment tools or tanstack
 update all data and ui handlers from layout
 like appsmith, make a separate data and styles option on right.
 make an handler file which update all changed states and their dependent elements.
 add remove widgets feature in it
+
 
 
 
