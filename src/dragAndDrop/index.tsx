@@ -8,8 +8,6 @@ import datasource1 from './libs/datasources/datasource1.json'
 import { WidgetWrapper } from "./components/WidgetWrapper";
 
 export default function DragDropPlayground() {
-  const [droppedItems, setDroppedItems] = useState([]);
-
   return (
     <>
         <Navbar/>
@@ -23,7 +21,7 @@ export default function DragDropPlayground() {
 
           {/* Right panel */}
           <div className="flex-1 p-4">
-            <Canvas droppedItems={droppedItems} setDroppedItems={setDroppedItems} />
+            <Canvas/>
           </div>
         </div>
       </DndContext>

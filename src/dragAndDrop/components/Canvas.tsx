@@ -2,10 +2,14 @@ import React, { useRef } from "react";
 import { useDrop } from "react-dnd";
 import { adjustLayout } from "../utils/layoutUtils";
 import Widget from "./Widget";
-import {resolveWidgetSize, isColliding, canPlaceWidget, sizePxToPercent} from "../utils/canvasFunctions"
+import {resolveWidgetSize, isColliding, canPlaceWidget, sizePxToPercent} from "../utils/canvasFunctions";
+import { useCanvasStore } from "../store/useCanvasStore";
 
-const Canvas = ({ droppedItems, setDroppedItems }) => {
+const Canvas = () => {
   const dropRef = useRef(null);
+  const widgets = useCanvasStore((state) => state.widgets);
+  const addWidget = useCanvasStore((state) => state.addWidget)
+  const updateWidget = useCanvasStore((state) => state.updateWidget)
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "WIDGET",
     hover(item, monitor) {
@@ -13,8 +17,9 @@ const Canvas = ({ droppedItems, setDroppedItems }) => {
       if (!canvasRect) return;
       const offset = monitor.getClientOffset();
       if (!offset) return;
-      const exists = droppedItems.some((w) => w.id === item.id);
+      const exists = widgets.some((w) => w.id === item.id);
       if (!exists) return;
+      const currentWidgets = useCanvasStore.getState().widgets;
       const initialMouse = monitor.getInitialClientOffset();
       const initialWidget = monitor.getInitialSourceClientOffset();
       const grabOffsetX = initialMouse.x - initialWidget.x;
@@ -23,15 +28,17 @@ const Canvas = ({ droppedItems, setDroppedItems }) => {
       const widgetY = offset.y - grabOffsetY;
       const newX = ((widgetX - canvasRect.left) / canvasRect.width) * 100;
       const newY = ((widgetY - canvasRect.top) / canvasRect.height) * 100;
-      setDroppedItems((prev) => {
-        const updated = prev.map((w) =>
-          w.id === item.id ? { ...w, position: { x: newX, y: newY } } : w
+      const updated = addFirsttimeWidget(
+          currentWidgets,
+          newX,
+          newY,
+          item,
+          canvasRect
         );
-        return adjustLayout(updated, item.id, { x: newX, y: newY });
-      });
     },
     drop(item, monitor) {
       const canvasRect = dropRef.current?.getBoundingClientRect();
+      const currentWidgets = useCanvasStore.getState().widgets;
       const offset = monitor.getClientOffset();
       if (!offset || !canvasRect) return;
       const initialMouse = monitor.getInitialClientOffset();
@@ -42,8 +49,30 @@ const Canvas = ({ droppedItems, setDroppedItems }) => {
       const widgetY = offset.y - grabOffsetY;
       const newX = ((widgetX - canvasRect.left) / canvasRect.width) * 100;
       const newY = ((widgetY - canvasRect.top) / canvasRect.height) * 100;
-      setDroppedItems((prev) => {
-        const exists = prev.some((w) => w.id === item.id);
+      const newUpdatedData = updateWidgetsData(
+        currentWidgets,
+        newX,
+        newY,
+        item,
+        canvasRect
+      );
+      console.log(newUpdatedData)
+      addWidget(newUpdatedData); 
+    },
+
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  }));
+  drop(dropRef);
+  const addFirsttimeWidget = ((prev,newX,newY,item,canvasRect)=>{
+     const updated = prev.map((w) =>
+          w.id === item.id ? { ...w, position: { x: newX, y: newY } } : w
+      );
+      return adjustLayout(updated, item.id, { x: newX, y: newY });
+  })
+  const updateWidgetsData = (prev,newX,newY,item,canvasRect)=>{
+     const exists =prev.some((w) => w.id === item.id);
         if (exists) {
           const updated = prev.map((w) =>
             w.id === item.id
@@ -71,20 +100,12 @@ const Canvas = ({ droppedItems, setDroppedItems }) => {
           }
           return [...prev, newWidget];
         }
-      });
-    },
-
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
-  }));
-  drop(dropRef);
+  }
   const handleDataUpdate = (id, newData) => {
-    setDroppedItems((prev) =>
-      prev.map((item) =>
+    const newUpdatedData = widgets.map((item) =>
         item.id === id ? { ...item, data: { ...item.data, ...newData } } : item
-      )
     );
+    addWidget(newUpdatedData)
   };
   return (
     <div
@@ -93,7 +114,7 @@ const Canvas = ({ droppedItems, setDroppedItems }) => {
         isOver ? "bg-blue-50 border-blue-400" : "border-gray-300"
       }`}
     >
-      {droppedItems.map((item) => {
+      {widgets.map((item) => {
         const Comp = item.component;
         const WrappedComp = Widget(Comp);
         return (
