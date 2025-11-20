@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import sourceMap from "../libs/dataSourceMap";
+import useDataSourceMap from "../libs/useDataSourceMap";
 
 const Button = ({ id, data, onDataUpdate }) => {
   const [selectedData, setSelectedData] = useState(data || {});
-
+  const sourceMap = useDataSourceMap();
   useEffect(() => {
     if (data && Object.keys(data).length > 0) {
       setSelectedData(data);

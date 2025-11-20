@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from "react";
-import sourceMap from "../libs/dataSourceMap";
+import useDataSourceMap from "../libs/useDataSourceMap";
 
 const Text = ({ id, data, onDataUpdate }) => {
   const [selectedData, setSelectedData] = useState(data || {});
-
-  // ✅ Keep local state in sync with Canvas updates
+  const sourceMap = useDataSourceMap();
   useEffect(() => {
     if (data && Object.keys(data).length > 0) {
       setSelectedData(data);
     }
   }, [data]);
-
-  // ✅ Handle datasource selection
   const handleDataChange = (value) => {
     const finalDatasource = sourceMap.find((ele) => ele.name === value);
     setSelectedData(finalDatasource);
-    onDataUpdate && onDataUpdate(finalDatasource); // send data back to Canvas
+    onDataUpdate && onDataUpdate(finalDatasource);
   };
-
-  // ✅ Show dropdown if no datasource selected yet
   if (!selectedData.source) {
     return (
       <select onChange={(e) => handleDataChange(e.target.value)}>
@@ -32,8 +27,6 @@ const Text = ({ id, data, onDataUpdate }) => {
       </select>
     );
   }
-
-  // ✅ Render dynamic text block once datasource is selected
   const { text } = selectedData.source;
 
   return (

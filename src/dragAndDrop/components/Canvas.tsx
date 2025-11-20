@@ -56,7 +56,6 @@ const Canvas = () => {
         item,
         canvasRect
       );
-      console.log(newUpdatedData)
       addWidget(newUpdatedData); 
     },
 

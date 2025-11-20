@@ -1,62 +1,9 @@
-// import React, { useState } from "react";
-// import sourceMap from "../libs/dataSourceMap";
-
-// const Input: React.FC = () => {
-//   const [selectedData, setSelectedData] = useState({});
-
-//   const handleDataChange = (e: any) => {
-//     const finalDatasource: any = sourceMap.find((ele) => {
-//       console.log(ele.name, e);
-//       return ele.name === e;
-//     });
-//     setSelectedData(finalDatasource);
-//   };
-
-//   return (
-//     <>
-//       {selectedData && Object.values(selectedData).length > 0 ? (
-//         <input
-//           type={selectedData.source.input.props.type || "text"}
-//           placeholder={selectedData.source.input.props.placeholder}
-//           defaultValue={selectedData.source.input.props.defaultValue}
-//           style={{
-//             border: selectedData.source.input.props.border,
-//             borderRadius: selectedData.source.input.props.borderRadius,
-//             padding: selectedData.source.input.props.padding,
-//             width: selectedData.source.input.props.width,
-//             color: selectedData.source.input.props.textColor,
-//             backgroundColor: selectedData.source.input.props.bgColor,
-//           }}
-//           className="focus:outline-none focus:ring-2 focus:ring-blue-500"
-//         />
-//       ) : (
-//         <select
-//           name="datasources"
-//           id="datasources"
-//           onChange={(e) => handleDataChange(e.target.value)}
-//         >
-//           <option value="" selected disabled hidden>
-//             Choose input datasource
-//           </option>
-//           <option value="datasource1">Datasource 1</option>
-//           <option value="datasource2">Datasource 2</option>
-//           <option value="datasource3">Datasource 3</option>
-//           <option value="datasource4">Datasource 4</option>
-//         </select>
-//       )}
-//     </>
-//   );
-// };
-
-// export default Input;
-
 import React, { useState, useEffect } from "react";
-import sourceMap from "../libs/dataSourceMap";
+import useDataSourceMap from "../libs/useDataSourceMap";
 
 const Card = ({ id, data, onDataUpdate }) => {
   const [selectedData, setSelectedData] = useState(data || {});
-
-  // ✅ Keep in sync with Canvas updates
+  const sourceMap = useDataSourceMap();
   useEffect(() => {
     if (data && Object.keys(data).length > 0) {
       setSelectedData(data);
