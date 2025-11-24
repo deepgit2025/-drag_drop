@@ -3,7 +3,7 @@ import datasource2 from "./datasources/datasource2.json"
 import datasource3 from "./datasources/datasource3.json"
 import datasource4 from "./datasources/datasource4.json"
 import { useDatasource1,useDatasource2,useDatasource3,useDatasource4, useUpdateDatasource1 } from "../api/hooks/useDatasources";
-import React from 'react'
+import React from 'react';
 
 const useDataSourceMap = () => {
   const ds1 = useDatasource1();

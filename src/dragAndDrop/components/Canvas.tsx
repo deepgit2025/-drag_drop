@@ -58,7 +58,6 @@ const Canvas = () => {
       );
       addWidget(newUpdatedData); 
     },
-
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),

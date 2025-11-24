@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {componentList} from "../libs/Components"
 import Widget from './Widget';
 import DataWrapper from './DataWrapper';
@@ -14,7 +14,7 @@ export const WidgetWrapper = () => {
           const WrappedComp = Widget(Comp);
          // const WrappedComp = DataWrapper(WrappedCompInitial);
           return (
-            <div key={id} className="p-2 border rounded shadow-sm">
+            <div key={id} className= {`p-2 border rounded shadow-sm`} >
               <h3 className="text-sm font-semibold mb-1">{name}</h3>
               <WrappedComp id={id} name={name} />
             </div>
