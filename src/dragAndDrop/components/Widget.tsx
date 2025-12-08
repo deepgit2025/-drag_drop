@@ -9,10 +9,8 @@ export default function Widget(WrappedComponent) {
     const wrapperRef = useRef(null);
     useEffect(() => {
       function handleClickOutside(e) {
-        if (!selected) return;                      // nothing selected → ignore
+        if (!selected) return;                      
         if (!wrapperRef.current) return;
-
-        // if clicked outside wrapper → unselect
         if (!wrapperRef.current.contains(e.target)) {
           setSelected(false);
         }

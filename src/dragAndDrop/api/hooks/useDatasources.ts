@@ -1,76 +1,22 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  getDatasource1,
-  getDatasource2,
-  getDatasource3,
-  getDatasource4,
-  updateDatasource1,
-  updateDatasource2,
-  updateDatasource3,
-  updateDatasource4,
-} from "../datasources";
+import { getDatasource, updateDatasource } from "../datasources";
 
-// ============ GET HOOKS ============
-export const useDatasource1 = () =>useQuery({
-    queryKey: ["datasource1"],
-    queryFn: getDatasource1,
-  });
-
-export const useDatasource2 = () =>
-  useQuery({
-    queryKey: ["datasource2"],
-    queryFn: getDatasource2,
-  });
-
-export const useDatasource3 = () =>
-  useQuery({
-    queryKey: ["datasource3"],
-    queryFn: getDatasource3,
-  });
-
-export const useDatasource4 = () =>
-  useQuery({
-    queryKey: ["datasource4"],
-    queryFn: getDatasource4,
-  });
-
-// ============ UPDATE HOOKS ============
-export const useUpdateDatasource1 = () => {
+export const useAndUpdateDatasource = (id) => {
   const client = useQueryClient();
-  return useMutation({
-    mutationFn: updateDatasource1,
+
+  const query = useQuery({
+    queryKey: ["datasource", id],
+    queryFn: () => getDatasource(id),
+    enabled: !!id,
+  });
+
+  const update = useMutation({
+    mutationFn: ( data ) => updateDatasource(id, data),
     onSuccess: () => {
-      client.invalidateQueries({ queryKey: ["datasource1"] });
+      client.invalidateQueries({ queryKey: ["datasource", id] });
     },
   });
+
+  return { ...query, update };
 };
 
-export const useUpdateDatasource2 = () => {
-  const client = useQueryClient();
-  return useMutation({
-    mutationFn: updateDatasource2,
-    onSuccess: () => {
-      client.invalidateQueries({ queryKey: ["datasource2"] });
-    },
-  });
-};
-
-export const useUpdateDatasource3 = () => {
-  const client = useQueryClient();
-  return useMutation({
-    mutationFn: updateDatasource3,
-    onSuccess: () => {
-      client.invalidateQueries({ queryKey: ["datasource3"] });
-    },
-  });
-};
-
-export const useUpdateDatasource4 = () => {
-  const client = useQueryClient();
-  return useMutation({
-    mutationFn: updateDatasource4,
-    onSuccess: () => {
-      client.invalidateQueries({ queryKey: ["datasource4"] });
-    },
-  });
-};

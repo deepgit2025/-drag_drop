@@ -103,7 +103,9 @@ const Canvas = () => {
     const newUpdatedData = widgets.map((item) =>
         item.id === id ? { ...item, data: { ...item.data, ...newData } } : item
     );
-    addWidget(newUpdatedData)
+    addWidget(newUpdatedData);
+    //updating the database exactly, that point using some hook or utility function
+
   };
   return (
     <div

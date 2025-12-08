@@ -1,7 +1,11 @@
 import React,{useState} from "react";
+import { useAndUpdateDatasource } from "../../api/hooks/useDatasources"; 
+import { updateDatasource } from "../../api/datasources";
 
 const Layover = ({ id, data, onDataUpdate, name }) => {
   if (!data) return null;
+  const datasourceid = data.name.slice(-1);
+  const dsFields = useAndUpdateDatasource(datasourceid);
   const compName = name?.toLowerCase();   
   const compData = data?.source?.[compName];    
   const fields = compData?.props || {};    
@@ -15,19 +19,44 @@ const Layover = ({ id, data, onDataUpdate, name }) => {
     })
   };
 
+  // const handleSave = () => {
+  //   onDataUpdate({
+  //     ...data,
+  //     source: {
+  //       ...data.source,
+  //       [compName]: {
+  //         ...data.source[compName],
+  //         props: {
+  //           ...updatedFields
+  //         }
+  //       }
+  //     }
+  //   });
+  //   //update data
+  //   console.log(data.source)
+  //   dsFields.update.mutate(data.source);
+  // };
   const handleSave = () => {
-    onDataUpdate({
+    const finalUpdatedObject = {
       ...data,
       source: {
         ...data.source,
         [compName]: {
           ...data.source[compName],
           props: {
-            ...updatedFields
-          }
-        }
-      }
-    });
+            ...updatedFields,
+          },
+        },
+      },
+    };
+    console.log(finalUpdatedObject.name);
+    onDataUpdate(finalUpdatedObject);
+  //  console.log(finalUpdatedObject.name)
+    updateDatasource(datasourceid,finalUpdatedObject.source)
+    // dsFields.update.mutate({
+    //   id: datasourceid,
+    //   data: finalUpdatedObject
+    // });
   };
   return (
     <div className="layover fixed right-0 top-0 h-full w-80 bg-white shadow-xl p-4 overflow-y-auto border">

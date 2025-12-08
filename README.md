@@ -90,13 +90,19 @@ change on button, show choose one when dropped. //done
 
 todo :: 13/11/2025 --- 19/11/2020
 perfect the drag and drop with grid like appsmith PS: responsiveness can be less prioritized //***** anyhow today :: done on 18/11/2025
-change data from layout only and their schema usng state managment tools or tanstack
-update all data and ui handlers from layout
-like appsmith, make a separate data and styles option on right.
-make an handler file which update all changed states and their dependent elements.
+change data from layout only and their schema usng state managment tools or tanstack //done
+update all data and ui handlers from layout //done
+like appsmith, make a separate data and styles option on right. //done
+PS:: ask for OKR to sir //done
+
+todo :: 25/11/2025 --- 01/12/2020
+make an handler file which update all changed states and their dependent elements. ///////
 add remove widgets feature in it.
-disble select in widgets, only active when dropped
-PS:: ask for OKR to sir
+disable select in widgets, only active when dropped.
+create interdependence between databases ****
+drop widgets and change database when chaning other db
+change only state that is changed not whole dropped //** PEROFRMANCE OPTIMIZATION
+
 
 
 
