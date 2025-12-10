@@ -49,7 +49,6 @@ const Layover = ({ id, data, onDataUpdate, name }) => {
         },
       },
     };
-    console.log(finalUpdatedObject.name);
     onDataUpdate(finalUpdatedObject);
   //  console.log(finalUpdatedObject.name)
     updateDatasource(datasourceid,finalUpdatedObject.source)

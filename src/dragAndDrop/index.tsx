@@ -6,6 +6,7 @@ import Canvas from "./components/Canvas";
 import Navbar from "./UIComps/Navbar";
 import datasource1 from './libs/datasources/datasource1.json'
 import { WidgetWrapper } from "./components/WidgetWrapper";
+import CanvasDataLoader from "./components/CanvasDataLoader";
 
 export default function DragDropPlayground() {
   return (
@@ -22,6 +23,7 @@ export default function DragDropPlayground() {
           {/* Right panel */}
           <div className="flex-1 p-4">
             <Canvas/>
+            <CanvasDataLoader/>
           </div>
         </div>
       </DndContext>

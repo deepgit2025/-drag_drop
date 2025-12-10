@@ -6,7 +6,7 @@ import DataWrapper from './DataWrapper';
 export const WidgetWrapper = () => {
   return (
     <div className="p-4 grid grid-cols-3 gap-4">
-        {componentList.map(({ id, name, component: Comp }) => {
+        {componentList.map(({ id, name, component: Comp, type }) => {
           if (!Comp) {
             console.error("Invalid component:", name);
             return null;
@@ -16,7 +16,7 @@ export const WidgetWrapper = () => {
           return (
             <div key={id} className= {`p-2 border rounded shadow-sm`} >
               <h3 className="text-sm font-semibold mb-1">{name}</h3>
-              <WrappedComp id={id} name={name} />
+              <WrappedComp id={id} name={name} type={type} />
             </div>
           );
         })}

@@ -4,6 +4,7 @@ import { adjustLayout } from "../utils/layoutUtils";
 import Widget from "./Widget";
 import {resolveWidgetSize, isColliding, canPlaceWidget, sizePxToPercent} from "../utils/canvasFunctions";
 import { useCanvasStore } from "../store/useCanvasStore";
+import { addDroppedsource, getDroppedsource, updateDroppedsource } from "../api/datasources";
 
 const Canvas = () => {
   const dropRef = useRef(null);
@@ -82,16 +83,19 @@ const Canvas = () => {
             console.warn("Drop rejected: Collision detected");
             return prev;
           }
+          updateDroppedsource(item.id,updatedItem);
           return adjustLayout(updated, item.id, { x: 0, y: 0 }, canvasRect);
         } else {
           const uniqueId = `${item.id}-${Date.now()}`;
           const newWidget = {
             ...item,
             id: uniqueId,
+            type: item.type,
             position: { x: newX, y: newY },
             size: resolveWidgetSize(item),
             data: item.data || {},
           };
+          addDroppedsource(newWidget);
           if (!canPlaceWidget(newWidget, prev, canvasRect)) {
             console.warn("Drop rejected: Collision detected");
             return prev;
@@ -100,12 +104,14 @@ const Canvas = () => {
         }
   }
   const handleDataUpdate = (id, newData) => {
-    const newUpdatedData = widgets.map((item) =>
-        item.id === id ? { ...item, data: { ...item.data, ...newData } } : item
+    const newUpdatedData = widgets.map((item) =>{
+      if(item.id === id){
+        updateDroppedsource(id,{ ...item, data: { ...item.data, ...newData } })
+        return { ...item, data: { ...item.data, ...newData } }
+      } else return item
+    }
     );
     addWidget(newUpdatedData);
-    //updating the database exactly, that point using some hook or utility function
-
   };
   return (
     <div
@@ -131,6 +137,7 @@ const Canvas = () => {
               name={item.name}
               data={item.data}
               onDataUpdate={(data) => handleDataUpdate(item.id, data)}
+              type={item.type}
             />
           </div>
         );
