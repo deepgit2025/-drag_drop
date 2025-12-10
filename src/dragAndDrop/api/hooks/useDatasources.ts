@@ -4,7 +4,8 @@ import {
   updateDatasource, 
   addDroppedsource, 
   updateDroppedsource, 
-  getDroppedsource 
+  getDroppedsource,
+  deleteDroppedSource
 } from "../datasources";
 
 export const useAndUpdateDatasource = (id:any) => {
@@ -40,4 +41,13 @@ export const useAndUpdateDatasource = (id:any) => {
   return { ...query, update };
 };
 
+export const useDeleteDroppedWidget = () => {
+  const client = useQueryClient();
 
+  return useMutation({
+    mutationFn: (id: string) => deleteDroppedSource(id),
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["droppedComponents"] });
+    },
+  });
+};

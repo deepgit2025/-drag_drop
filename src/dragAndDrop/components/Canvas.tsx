@@ -4,7 +4,7 @@ import { adjustLayout } from "../utils/layoutUtils";
 import Widget from "./Widget";
 import {resolveWidgetSize, isColliding, canPlaceWidget, sizePxToPercent} from "../utils/canvasFunctions";
 import { useCanvasStore } from "../store/useCanvasStore";
-import { addDroppedsource, getDroppedsource, updateDroppedsource } from "../api/datasources";
+import { addDroppedsource, getDroppedsource, updateDroppedsource, deleteDroppedSource } from "../api/datasources";
 
 const Canvas = () => {
   const dropRef = useRef(null);
@@ -113,6 +113,12 @@ const Canvas = () => {
     );
     addWidget(newUpdatedData);
   };
+
+  const removeDroppedData = (id :any,data:any)=>{
+    deleteDroppedSource(id);
+    let newUpdatedData = widgets.filter((item:any) => item.id !== id);
+    addWidget(newUpdatedData);
+  }
   return (
     <div
       ref={dropRef}
@@ -136,8 +142,9 @@ const Canvas = () => {
               id={item.id}
               name={item.name}
               data={item.data}
-              onDataUpdate={(data) => handleDataUpdate(item.id, data)}
+              onDataUpdate={(data:any) => handleDataUpdate(item.id, data)}
               type={item.type}
+              onDataDelete={(data:any) => removeDroppedData(item.id, data)}
             />
           </div>
         );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useDataSourceMap from "../libs/useDataSourceMap";
 
-const Button = ({ id, data, onDataUpdate }) => {
+const Button = ({ id, data, onDataUpdate, onDataDelete }) => {
   const [selectedData, setSelectedData] = useState(data || {});
   const sourceMap = useDataSourceMap();
   useEffect(() => {
@@ -15,7 +15,6 @@ const Button = ({ id, data, onDataUpdate }) => {
     setSelectedData(finalDatasource);
     onDataUpdate && onDataUpdate(finalDatasource); 
   };
-
   if (!selectedData.source) {
     return (
       <select onChange={(e) => handleDataChange(e.target.value)}>

@@ -37,27 +37,9 @@ export default function Widget(WrappedComponent) {
           return !prev;
         });
     }
-   // const Comp = componentRegistry[props.type]; 
-   // return !Comp ? <div>not loaded</div> :
-  //  return (
-  //     <>
-  //       <div ref={wrapperRef}>  
-  //       <div
-  //         ref={drag}
-  //         className={`group border-gray-300 rounded-lg p-2 hover:shadow-md transition cursor-move ${
-  //           isDragging ? "opacity-50" : "" 
-  //         } ${selected ? "border-red" : "border"}`} onClick={e=>handleWidgetClick(e)}
-  //       >
-  //         <p className="text-xs text-gray-500 mb-1">{props.name}</p>
-  //         <WrappedComponent {...props} />
-  //       </div>
-  //       {selected && 
-  //       <div>
-  //           <Layover {...props} selected={selected} setSelected={setSelected} name={props.name} />
-  //       </div>}
-  //     </div>
-  //     </>
-  //   );
+    const handleWidgetDelete = (e:Object) => {
+      props.onDataDelete(props.id);
+    }
   const Component = componentRegistry[props.type];
 
   if (!Component) {
@@ -66,6 +48,25 @@ export default function Widget(WrappedComponent) {
   return (
     <>
       <div ref={wrapperRef}>
+        {props.onDataDelete && (
+          <button
+            title="delete"
+            onClick={handleWidgetDelete}
+            style={{
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              fontSize: "10px",
+              color: "#666",
+              transition: "color 0.2s ease",
+              position:"absolute",
+              right:"0",
+            }}
+            className="delete-btn"
+          >
+            🗑️
+          </button>
+        )}
         <div
           ref={drag}
           className={`group border-gray-300 rounded-lg p-2 hover:shadow-md transition cursor-move ${

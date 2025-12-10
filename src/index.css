@@ -472,5 +472,8 @@
 .hover-button:hover{
   transform: scale(0.8);
   transition: all ease-in-out 0.5s;
+}
 
+.delete-btn:hover {
+  color: red !important;
 }

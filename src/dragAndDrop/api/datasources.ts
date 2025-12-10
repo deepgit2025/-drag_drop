@@ -32,3 +32,8 @@ export const addDroppedsource = async (updates:any) => {
   const res = await api.post(`/droppedComponents`, updates);
   return res.data;
 };
+
+export const deleteDroppedSource = async (id: string) => {
+  const res = await api.delete(`/droppedComponents/${id}`);
+  return res.data;
+};
