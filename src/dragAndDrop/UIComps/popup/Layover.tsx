@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import { useAndUpdateDatasource } from "../../api/hooks/useDatasources"; 
-import { updateDatasource } from "../../api/datasources";
+import { updateDatasource, updateDroppedsource } from "../../api/datasources";
 
 const Layover = ({ id, data, onDataUpdate, name }) => {
   if (!data) return null;
@@ -51,7 +51,7 @@ const Layover = ({ id, data, onDataUpdate, name }) => {
     };
     onDataUpdate(finalUpdatedObject);
   //  console.log(finalUpdatedObject.name)
-    updateDatasource(datasourceid,finalUpdatedObject.source)
+    updateDroppedsource(datasourceid,finalUpdatedObject.source)
     // dsFields.update.mutate({
     //   id: datasourceid,
     //   data: finalUpdatedObject

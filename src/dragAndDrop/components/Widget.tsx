@@ -79,7 +79,7 @@ export default function Widget(WrappedComponent) {
         </div>
 
         {selected && (
-          <Layover {...props} selected={selected} setSelected={setSelected} name={props.name} />
+          <Layover {...props} selected={selected} setSelected={setSelected} name={props.name}  />
         )}
       </div>
     </>
